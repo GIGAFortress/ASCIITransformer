@@ -15,14 +15,14 @@ namespace ASCIITransformer.ViewModels
         public string TextBoxASCIICode
         {
             get { return _TextBoxASCIICode; }
-            set { _TextBoxASCIICode = value; ASCIIToString(); OnPropertyChanged("TextBoxASCIICode"); }
+            set { _TextBoxASCIICode = value; OnPropertyChanged("TextBoxASCIICode"); }
         }
 
         private string _TextBoxStringCode;
 	    public string TextBoxStringCode
 	    {
 		    get { return _TextBoxStringCode;}
-            set { _TextBoxStringCode = value; StringToASCII(); OnPropertyChanged("TextBoxStringCode"); }
+            set { _TextBoxStringCode = value; OnPropertyChanged("TextBoxStringCode"); }
 	    }
 	
         private Boolean _IsCheckBoxSpace;
@@ -50,6 +50,7 @@ namespace ASCIITransformer.ViewModels
 
         void ASCIIToString()
         {
+            MessageBox.Show("Hello");
             if (Flag)
             {
                 Flag = false;
@@ -112,7 +113,7 @@ namespace ASCIITransformer.ViewModels
             SetupFlag = new DelegateCommand(_SetupFlag);
             for(i = 1; i < 30; i++)
             {
-                TextBoxASCIICode += string.Format("{0:F4}", i);
+                TextBoxASCIICode += string.Format("{0:F2}", i);
                 TextBoxASCIICode += " ";
             }
         }

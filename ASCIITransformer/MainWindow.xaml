@@ -3,54 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls" 
-        xmlns:ViewModels="clr-namespace:ASCIITransformer.ViewModels" x:Class="ASCIITransformer.MainWindow" 
+        xmlns:ViewModels="clr-namespace:ASCIITransformer.ViewModels"
+        x:Class="ASCIITransformer.MainWindow" 
+        xmlns:View="clr-namespace:ASCIITransformer"
         Title="MainWindow" Height="350" Width="525" MinWidth="525" MinHeight="350" EnableDWMDropShadow="True">
     <Controls:MetroWindow.DataContext>
         <ViewModels:MainWindowViewModel/>
     </Controls:MetroWindow.DataContext>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="48.91"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="31.941"/>
-        </Grid.RowDefinitions>
-        <Controls:MetroTabControl HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="37.87" Width="198.36">
-            <TabItem Header="开始"> 
-                
+        <Controls:MetroAnimatedSingleRowTabControl 
+                                  Margin="10,10,10,10">
+            <TabItem Header="开始" >
+                <View:Start />
             </TabItem>
             <TabItem Header="ASCII码表">
-                
+                <TextBlock FontSize="30" Text="Hello" />
             </TabItem>
-        </Controls:MetroTabControl>
-        <Grid Margin="10" Grid.Row="1">
-            <GroupBox Header="ASCII码" Margin="0">
-                <TextBox TextWrapping="Wrap" Text="{Binding TextBoxASCIICode}" Margin="0,0,0.4,0">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="GotFocus">
-                            <i:InvokeCommandAction Command="{Binding SetupFlag}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
-            </GroupBox>
-            <Label Content="{Binding LabelASCIILength}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="49.066,1,0,0" Foreground="White"/>
-        </Grid>
-        <Grid Margin="10" Grid.Row="2">
-            <GroupBox Header="字符" Margin="0">
-                <TextBox TextWrapping="Wrap" Text="{Binding TextBoxStringCode}" Margin="0">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="GotFocus">
-                            <i:InvokeCommandAction Command="{Binding SetupFlag}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
-            </GroupBox>
-            <Label Content="{Binding LabelStringLength}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="31.466,1,0,0" Foreground="White"/>
-        </Grid>
-        <Grid Margin="0" Grid.Row="3">
-            <CheckBox IsChecked="{Binding IsCheckBoxSpace}"
-				Content="带空格输出" HorizontalAlignment="Left" Margin="10,0,0,10" Height="18" VerticalAlignment="Bottom" Width="84"/>
-        </Grid>
+        </Controls:MetroAnimatedSingleRowTabControl>
+
 
     </Grid>
 </Controls:MetroWindow>
