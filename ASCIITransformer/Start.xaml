@@ -8,20 +8,26 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
-        <GroupBox Header="ASCII码" Margin="0">
+        <GroupBox Header="ASCII码" Margin="0" MinHeight="120">
             <TextBox TextWrapping="Wrap" Text="{Binding TextBoxASCIICode}" Margin="0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="GotFocus">
                         <i:InvokeCommandAction Command="{Binding SetupFlag}"/>
                     </i:EventTrigger>
+                    <i:EventTrigger EventName="LostFocus">
+                        <i:InvokeCommandAction Command="{Binding ASCIIToString}"/>
+                    </i:EventTrigger>
                 </i:Interaction.Triggers>
             </TextBox>
         </GroupBox>
-        <GroupBox Header="字符" Margin="0">
+        <GroupBox Header="字符" Margin="0" MinHeight="120">
             <TextBox TextWrapping="Wrap" Text="{Binding TextBoxStringCode}" Margin="0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="GotFocus">
                         <i:InvokeCommandAction Command="{Binding SetupFlag}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="LostFocus">
+                        <i:InvokeCommandAction Command="{Binding StringToASCII}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </TextBox>

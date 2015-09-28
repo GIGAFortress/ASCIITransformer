@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Practices.Prism.Mvvm;
 using System.Windows;
 using Microsoft.Practices.Prism.Commands;
+using System.Globalization;
 
 namespace ASCIITransformer.ViewModels
 {
@@ -48,74 +49,65 @@ namespace ASCIITransformer.ViewModels
 
         private Boolean Flag = true;
 
-        void ASCIIToString()
-        {
-            MessageBox.Show("Hello");
+        public DelegateCommand ASCIIToString { get; set; }
+        void _ASCIIToString()
+        {            
             if (Flag)
             {
-                Flag = false;
-                Stringtemp = TextBoxASCIICode.Replace(" ", "");
-                for (i = 0; i < Stringtemp.Length; i++)
+                try
                 {
-                    if (Stringtemp[i] > 127) { Flag1 = false; }
-                }
-                if(Flag1)
-                {
-
-                }
-            }
-           
+                    Flag = false;
+                    Stringtemp = TextBoxASCIICode.Replace(" ", "");
+                    string str1 = string.Empty;
+                    for (i = 0; i < Stringtemp.Length; i += 2)
+                    {
+                        Byte j = Byte.Parse(Stringtemp.Substring(i, 2), NumberStyles.HexNumber);
+                        str1 += Encoding.ASCII.GetString(new byte[] { j });
+                    }
+                    TextBoxStringCode = str1;
+                }catch (Exception) { ;}                
+            }           
         }
 
         private byte[] Bytestring;
         private int i;
-        private bool Flag1;
         private string asciicode;
-        private string Stringtemp;
+        private string Stringtemp = string.Empty;
 
-        //    private string tempstring1;
-        void StringToASCII()
-        {
+
+        public DelegateCommand StringToASCII { get; set; }
+        void _StringToASCII()
+        {            
             if(Flag)
             {
                 Flag = false;
-                Stringtemp = TextBoxStringCode.Replace(" ","");
-                for (i = 0; i < Stringtemp.Length; i++)
+                try
                 {
-                    if (Stringtemp[i] > 127) { Flag1 = false; }
-                }
-                Bytestring = System.Text.Encoding.ASCII.GetBytes(Stringtemp);
-                asciicode = "";                
-                if (Flag1)
-                {                                        
-                    for(i = 0;i < Stringtemp.Length; i++)
-                    {                    
+                    Stringtemp = TextBoxStringCode.Replace(" ", "");
+                    Bytestring = System.Text.Encoding.ASCII.GetBytes(Stringtemp);
+                    asciicode = "";
+                    for (i = 0; i < Stringtemp.Length; i++)
+                    {
                         asciicode += Bytestring[i].ToString("X2");
-                        if(IsCheckBoxSpace)
-                        asciicode += " ";
-                    }
+                        if (IsCheckBoxSpace)
+                            asciicode += " ";
+                    }                          
+                    TextBoxASCIICode = asciicode;                    
                 }
-                if (asciicode != "")
-                    TextBoxASCIICode = asciicode;
-                else
-                    TextBoxASCIICode = "";
-            }            
+                catch (Exception) { ;}               
+            } 
         }
 
         public DelegateCommand SetupFlag { get; set; }
         private void _SetupFlag()
         {
             Flag = true;
-            Flag1 = true;
         }
         public MainWindowViewModel()
         {
             SetupFlag = new DelegateCommand(_SetupFlag);
-            for(i = 1; i < 30; i++)
-            {
-                TextBoxASCIICode += string.Format("{0:F2}", i);
-                TextBoxASCIICode += " ";
-            }
+            StringToASCII = new DelegateCommand(_StringToASCII);
+            ASCIIToString = new DelegateCommand(_ASCIIToString);
         }
       
     }
